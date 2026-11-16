@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 SENSI ABSURDA — NÍVEL XIT 🔥</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { escuro:'#0F0F13', preto:'#000000', laranja:'#FF9500', vermelho:'#FF0000', dourado:'#FFCC00', neon:'#FF0066', gold:'#ffd700' },
+                    fontFamily: { tech:['Orbitron','sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background:#000; font-family:'Orbitron',sans-serif; }
+        .text-glow { text-shadow:0 0 10px currentColor; }
+        .fogo { background:linear-gradient(45deg,#ff0000,#ff6600,#ffff00,#ff6600,#ff0000); background-size:400% 400%; animation:fogo 1.5s linear infinite; }
+        @keyframes fogo { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+        .pulse-glow { animation:pulse-glow 1s ease-in-out infinite alternate; }
+        @keyframes pulse-glow { from { box-shadow:0 0 10px #ff0000, 0 0 20px #ff6600; } to { box-shadow:0 0 25px #ff0000, 0 0 40px #ff6600, 0 0 60px #ffff00; } }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+
+<!-- TELA DE LOGIN -->
+<div id="telaLogin" class="fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50">
+    <div class="w-full max-w-md">
+        <h1 class="text-4xl font-black text-center text-red-500 mb-2 text-glow">🔥 SENSI ABSURDA 🔥</h1>
+        <p class="text-center text-yellow-400 mb-6">⚠️ USA COM CUIDADO — MUITO BOA ⚠️</p>
+        
+        <div class="bg-gray-900/80 p-6 rounded-xl border border-red-500/50 pulse-glow">
+            <p class="text-center text-sm mb-3 text-yellow-300">Digite a senha de acesso:</p>
+            <input type="password" id="senha" placeholder="Senha..." 
+                class="w-full h-12 bg-black/50 border border-red-500/50 rounded-lg px-4 text-center text-lg mb-4 outline-none text-white">
+            <button onclick="entrar()" class="w-full h-12 fogo rounded-lg font-bold text-black">🔥 ENTRAR</button>
+            <p id="erro" class="text-red-500 text-center text-sm mt-2 hidden">Senha incorreta!</p>
+        </div>
+    </div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div id="conteudo" class="container mx-auto px-4 py-6 max-w-md hidden">
+    <h2 class="text-xl font-bold text-center text-red-500 mb-2 text-glow">🔥 MODO ABSURDO ATIVADO 🔥</h2>
+    <p class="text-center text-yellow-400 text-xs mb-6">⚠️ DÁ PRA SER CONFUNDIDO COM XIT — USA COM CABEÇA ⚠️</p>
+
+    <div class="space-y-4 mb-6">
+        <div>
+            <label class="block text-sm text-gray-300 mb-1">📱 Marca do Celular</label>
+            <input type="text" id="marca" placeholder="Samsung, Xiaomi..." 
+                class="w-full h-12 bg-gray-900/50 border border-red-500/50 rounded-lg px-4 outline-none focus:border-yellow-400">
+        </div>
+        <div>
+            <label class="block text-sm text-gray-300 mb-1">🔢 Modelo</label>
+            <input type="text" id="modelo" placeholder="A03, Moto G20..." 
+                class="w-full h-12 bg-gray-900/50 border border-red-500/50 rounded-lg px-4 outline-none focus:border-yellow-400">
+        </div>
+        <div>
+            <label class="block text-sm text-gray-300 mb-1">🔋 DPI</label>
+            <input type="number" id="dpi" placeholder="450, 500, 550..." 
+                class="w-full h-12 bg-gray-900/50 border border-red-500/50 rounded-lg px-4 outline-none focus:border-yellow-400">
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-6">
+        <div>
+            <label class="block text-sm text-gray-300 mb-1">Força da Sensi</label>
+            <select id="forca" class="w-full h-12 bg-gray-900/50 border border-red-500/50 rounded-lg px-4 outline-none">
+                <option>FORTE</option>
+                <option selected>MUITO FORTE</option>
+                <option>ABSURDA</option>
+            </select>
+        </div>
+        <div>
+            <label class="block text-sm text-gray-300 mb-1">Estilo</label>
+            <select id="estilo" class="w-full h-12 bg-gray-900/50 border border-red-500/50 rounded-lg px-4 outline-none">
+                <option>CAPA RÁPIDA</option>
+                <option selected>CABEÇA DIRETA</option>
+                <option>TUDO JUNTO</option>
+            </select>
+        </div>
+    </div>
+
+    <button onclick="gerarSensi()" class="w-full h-16 fogo rounded-lg font-bold text-xl text-black mb-6 pulse-glow">
+        🔥 GERAR SENSI ABSURDA 🔥
+    </button>
+
+    <!-- LOADER -->
+    <div id="loader" class="hidden mb-6">
+        <p class="text-center text-red-500 mb-2 animate-pulse" id="status">CALIBRANDO PRECISÃO MÁXIMA...</p>
+        <div class="w-full h-4 bg-gray-800 rounded-full overflow-hidden border border-red-500/50">
+            <div id="barra" class="h-full fogo w-0 transition-all duration-150"></div>
+        </div>
+        <p class="text-center text-yellow-400 font-bold mt-1" id="porcento">0%</p>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado" class="hidden bg-gray-900/80 border-2 border-red-500 rounded-xl p-5 pulse-glow">
+        <h3 class="text-xl font-black text-center text-red-500 mb-4 text-glow">🔥 SENSI ABSURDA PRONTA 🔥</h3>
+        <div class="space-y-3 text-sm">
+            <div class="flex justify-between py-2 border-b border-gray-700">
+                <span class="text-white">🔫 GERAL</span>
+                <span class="font-black text-red-500 text-lg" id="valGeral">0</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-gray-700">
+                <span class="text-white">🎯 PONTO VERMELHO</span>
+                <span class="font-black text-red-500 text-lg" id="valPonto">0</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-gray-700">
+                <span class="text-white">🔭 MIRA 2x</span>
+                <span class="font-black text-red-500 text-lg" id="val2x">0</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-gray-700">
+                <span class="text-white">🔭 MIRA 4x</span>
+                <span class="font-black text-red-500 text-lg" id="val4x">0</span>
+            </div>
+            <div class="flex justify-between py-2 border-b border-gray-700">
+                <span class="text-white">🎯 SNIPER</span>
+                <span class="font-black text-red-500 text-lg" id="valSniper">0</span>
+            </div>
+            <div class="flex justify-between py-2">
+                <span class="text-white">👀 CÂMERA</span>
+                <span class="font-black text-red-500 text-lg" id="valCamera">0</span>
+            </div>
+        </div>
+        <div class="mt-4 p-3 bg-red-900/30 rounded-lg border border-red-500/50">
+            <p class="text-yellow-400 text-xs text-center font-bold">⚠️ DPI RECOMENDADO: <span id="resDpi" class="text-white">450</span> | NÃO USA EM TORNEIOS ⚠️</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function entrar() {
+    const s = document.getElementById('senha').value;
+    if(s === 'GERAR00' || s === 'SENSITY2026') {
+        document.getElementById('telaLogin').classList.add('hidden');
+        document.getElementById('conteudo').classList.remove('hidden');
+    } else {
+        document.getElementById('erro').classList.remove('hidden');
+    }
+}
+
+function limitar(valor, min, max) {
+    return Math.max(min, Math.min(max, Math.round(valor)));
+}
+
+function gerarSensi() {
+    const marca = (document.getElementById('marca').value || '').toLowerCase();
+    const modelo = (document.getElementById('modelo').value || '').toLowerCase();
+    let dpi = parseInt(document.getElementById('dpi').value) || 450;
+    const forca = document.getElementById('forca').value;
+    const estilo = document.getElementById('estilo').value;
+
+    document.getElementById('resultado').classList.add('hidden');
+    document.getElementById('loader').classList.remove('hidden');
+    
+    const passos = [
+        'DESTRUIDO O RECUO...',
+        'ALINHANDO COM CABEÇA...',
+        'ATIVANDO PRECISÃO ABSOLUTA...',
+        'SINCRONIZANDO DPI...',
+        'PRONTO PRA DAR CAPA EM TODO MUNDO!'
+    ];
+    let p = 0;
+    const intervalo = setInterval(() => {
+        p += 5;
+        document.getElementById('barra').style.width = p + '%';
+        document.getElementById('porcento').textContent = p + '%';
+        document.getElementById('status').textContent = passos[Math.floor(p/20)] || 'PROCESSANDO...';
+        if(p >= 100) {
+            clearInterval(intervalo);
+            calcularValores();
+        }
+    }, 60);
+
+    function calcularValores() {
+        // Base absurda — faixa 150 a 200
+        let baseGeral, basePonto, base2x, base4x, baseSniper, baseCamera;
+
+        // Força principal
+        if(forca.includes('FORTE')) {
+            baseGeral = 165; basePonto = 160; base2x = 155; base4x = 150; baseSniper = 130; baseCamera = 175;
+        } else if(forca.includes('ABSURDA')) {
+            baseGeral = 195; basePonto = 190; base2x = 185; base4x = 180; baseSniper = 155; baseCamera = 200;
+        } else { // MUITO FORTE
+            baseGeral = 180; basePonto = 175; base2x = 170; base4x = 165; baseSniper = 140; baseCamera = 190;
+        }
+
+        // Estilo
+        if(estilo.includes('CABEÇA')) {
+            basePonto += 8; base2x += 5; base4x += 3;
+        }
+        if(estilo.includes('CAPA')) {
+            baseGeral += 10; baseCamera += 8;
+        }
+        if(estilo.includes('TUDO')) {
+            baseGeral += 5; basePonto += 5; base2x += 5; base4x += 5; baseSniper += 5; baseCamera += 5;
+        }
+
+        // Ajustes de celular
+        if(modelo.includes('a03') || modelo.includes('a10')) {
+            baseGeral -= 4; basePonto -= 3; base2x -= 4; base4x -= 4;
+        }
+        if(marca.includes('xiaomi') || marca.includes('poco')) {
+            baseGeral += 5; basePonto += 4; base2x += 4; base4x += 3;
+        }
+        if(modelo.includes('moto')) {
+            baseGeral -= 2; basePonto -= 2;
+        }
+
+        // DPI
+        const dpiRef = 450;
+        const fatorDpi = Math.sqrt(dpiRef / dpi);
+        baseGeral *= fatorDpi;
+        basePonto *= fatorDpi;
+        base2x *= fatorDpi;
+        base4x *= fatorDpi;
+        baseSniper *= fatorDpi;
+        baseCamera *= fatorDpi;
+
+        // Limitar entre 100 e 200
+        const g = limitar(baseGeral, 100, 200);
+        const pt = limitar(basePonto, 100, 200);
+        const m2 = limitar(base2x, 100, 200);
+        const m4 = limitar(base4x, 100, 200);
+        const sn = limitar(baseSniper, 100, 200);
+        const cam = limitar(baseCamera, 100, 200);
+
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('resultado').classList.remove('hidden');
+        document.getElementById('valGeral').textContent = g;
+        document.getElementById('valPonto').textContent = pt;
+        document.getElementById('val2x').textContent = m2;
+        document.getElementById('val4x').textContent = m4;
+        document.getElementById('valSniper').textContent = sn;
+        document.getElementById('valCamera').textContent = cam;
+        document.getElementById('resDpi').textContent = dpi;
+    }
+}
+</script>
+</body>
+</html>
